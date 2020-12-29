@@ -1,5 +1,5 @@
 # karat-challenge
-This challenge 
+This piece of code implements the spec outlined  
 
 ## Table of Contents
 
