@@ -1,0 +1,11 @@
+{
+  "name": "stripe-event",
+  "version": "2.2.0",
+  "main": "handler.js",
+  "scripts": {
+    "test": "serverless-bundle test",
+    "deploy-local": "serverless deploy --stage local"
+  },
+  "author": "Arjun",
+  "dependencies": {}
+}

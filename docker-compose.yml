@@ -3,6 +3,12 @@ services:
   ############################################################################################################################
   # FRONTEND APP
   ############################################################################################################################
+  stripe-cli:
+    image: stripe/stripe-cli:latest
+    container_name: stripe-cli
+    environment:
+        STRIPE_API_KEY: sk_test_51GxIRlE8hHKqEw8LMuVCSbA9OapYX7beCPDmg2xxzMGmRmH2KL6K03URWrp67rnSKmKfy3Y0SzzpfvfB55s4q9bo00ktTUnEOT
+    command: listen --forward-to http://localstack:4566/restapis/${REST_API_ID}/local/_user_request_/stripe-event
   ############################################################################################################################
   # POSTGRES
   ############################################################################################################################
@@ -17,8 +23,8 @@ services:
       - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgrespassword
-    networks:
-      - gateway
+    # networks:
+    #   - localstack-net
   ############################################################################################################################
   # HASURA
   ############################################################################################################################
@@ -36,12 +42,20 @@ services:
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
-    networks:
-      - gateway
+    # networks:
+    #   - localstack-net
   ############################################################################################################################
-  # KINESIS
+  # AWS APIGATEWAY, EVENTBRIDGE & LAMBDA
   ############################################################################################################################
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - '4563-4599:4563-4599'
+    environment:
+      - SERVICES=lambda,s3,apigateway,cloudformation,sts,iam,cloudwatch,eventbridge,route53
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
 volumes:
   db_data:
-networks:
-  gateway: {}
