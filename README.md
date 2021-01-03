@@ -19,6 +19,7 @@ Simulates an AWS cloud application to handle stripe events as well as implements
 ### Prereqs
 1. install `docker` & `docker-compose`
 2. install `stripe-cli`
+3. install `awscli`
 ### Usage
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. 
 
