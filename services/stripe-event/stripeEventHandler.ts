@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_API_KEY, {
   apiVersion: '2020-08-27',
   typescript: true,
 });
-const client = new AWS.SecretsManager({
+const secretsManager = new AWS.SecretsManager({
   endpoint: `http://${process.env.LOCALSTACK_HOSTNAME}:4566`,
   region: 'us-east-1'
 })
@@ -17,15 +17,38 @@ const handler = async (event) => {
   try 
   {
     console.log('*************** START ********************')
-    console.log('ENV', process.env.LOCALSTACK_HOSTNAME)
     const signature = event.headers["Stripe-Signature"]
-    console.log('signature', signature)
-    const secret = (await (client.getSecretValue({ SecretId: secretName })).promise()).SecretString
-    console.log('secret', secret)
+    const secret = (await (secretsManager.getSecretValue({ SecretId: secretName })).promise()).SecretString
+    
     const eventReceived = stripe.webhooks.constructEvent(event.body, signature, secret)
-    console.log(eventReceived)
+    
+    const eventBridge = new AWS.EventBridge({
+      endpoint: `http://${process.env.LOCALSTACK_HOSTNAME}:4566`,
+      region: "us-east-1"
+    });
+    console.log('event.type', event.type)
+    const ret = await eventBridge.putEvents({
+      Entries: [
+        {
+          Source: 'stripe',
+          DetailType: event.type,
+          Detail: JSON.stringify(eventReceived),
+        },
+      ]
+    }).promise();
+    console.log(ret)
     console.log('*******************************************')
   } 
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event", event)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event", event)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 42 ~ handler ~ event.type", event.type)
   catch (e) 
   {
     err = e

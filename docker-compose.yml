@@ -52,7 +52,7 @@ services:
     ports:
       - '4563-4599:4563-4599'
     environment:
-      - SERVICES=lambda,s3,apigateway,cloudformation,secretsmanager,sts,iam,cloudwatch,eventbridge,route53
+      - SERVICES=lambda,s3,apigateway,cloudformation,secretsmanager,sts,iam,cloudwatch,events,route53
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
     volumes:
