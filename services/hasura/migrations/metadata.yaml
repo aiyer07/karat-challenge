@@ -1,0 +1,11 @@
+version: 2
+tables:
+- table:
+    schema: public
+    name: cards
+- table:
+    schema: public
+    name: transactions
+- table:
+    schema: public
+    name: users

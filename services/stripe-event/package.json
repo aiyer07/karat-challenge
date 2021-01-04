@@ -1,6 +1,6 @@
 {
-  "name": "stripe-event",
-  "version": "2.2.0",
+  "name": "@karat/stripe",
+  "version": "1.0.0",
   "scripts": {
     "test": "serverless-bundle test",
     "deploy-local": "serverless deploy --stage local"

@@ -1,0 +1,10 @@
+{
+  "name": "@everydae/hasura",
+  "version": "1.0.0",
+  "description": "hasura",
+  "private": true,
+  "scripts": {
+    "build": "echo BUILDING: hasura has no node modules"
+  },
+  "dependencies": {}
+}

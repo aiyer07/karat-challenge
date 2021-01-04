@@ -31,7 +31,7 @@ Start by running `yarn install`
 
 ##### Turn on Serverless Event System
 1.  Run `docker-compose up -d localstack`. Ensure that this step has completed by checking `localhost:4566/health` and verifying that all services are 'running'. 
-2.  Run `yarn workspaces run deploy-local`. Ensure this step is completed before moving on to the next.
+2.  Run `yarn run stripe-events`. Ensure this step is completed before moving on to the next.
 3. Run `bash setup-sls-event-handler.sh` (make sure you are in a bash terminal and use the dot syntax as written in the command above)`
 4. Copy the webhook signing secret
 5. Open a new terminal at the root of the directory and run `bash store-signing-secret.sh <webhook-signing-secret>`

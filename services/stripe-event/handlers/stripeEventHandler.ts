@@ -18,7 +18,6 @@ const eventBridge: AWS.EventBridge = new AWS.EventBridge({
 const handler = async (event) => {
   let err = null
   try {
-    console.log('*************** START ********************')
     const signature: string = event.headers["Stripe-Signature"]
     const secret: string = (await (secretsManager.getSecretValue({ SecretId: process.env.STRIPE_SIGNING_SECRET })).promise()).SecretString
     
@@ -36,7 +35,7 @@ const handler = async (event) => {
   } catch (e) {
     err = e
     console.log('*************** ERROR ********************')
-    console.log(e)
+    console.log("🚀 ~ file: stripeEventHandler.ts ~ line 40 ~ handler ~ e", e)
     console.log('******************************************')
   }
   const body = err ? JSON.stringify(err) : ""

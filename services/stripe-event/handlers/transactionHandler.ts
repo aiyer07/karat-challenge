@@ -1,13 +1,11 @@
-const handler = async () => {
+const handler = async (event) => {
   let err = null
-  try 
-  {
+  try {
     console.log('*************** START ********************')
     console.log('stripeTransaction')
+    console.log("🚀 ~ file: transactionHandler.ts ~ line 10 ~ handler ~ event", event)
     console.log('*******************************************')
-  } 
-  catch (e) 
-  {
+  } catch (e) {
     err = e
     console.log('*************** ERROR ********************')
     console.log(e)

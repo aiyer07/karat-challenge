@@ -2,7 +2,12 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "sls-deploy-local": ""
+    "stripe-sls-system": "npm-run-all -s stripe-sls-events stripe-event-forwarder",
+    "stripe-sls-events": "lerna exec --scope=@karat/stripe -- yarn deploy-local",
+    "stripe-event-forwarder": "lerna exec --scope=@karat/stripe -- bash local-config/setup-sls-event-handler.sh",
+    "store-stripe-signing-secret": "lerna exec --scope=@karat/stripe -- bash local-config/store-signing-secret.sh",
+    "hasura-console": "lerna exec --scope=@everydae/hasura -- hasura console --endpoint http://127.0.0.1:3010 --admin-secret=myadminsecretkey",
+    "migrations": "lerna exec --scope=@everydae/hasura -- hasura migrate apply --endpoint http://127.0.0.1:3010 --admin-secret=mysecretadminkey"
   },
   "workspaces": {
     "packages": [
@@ -16,7 +21,9 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.68",
+    "hasura-cli": "^1.3.3",
     "lerna": "^3.10.5",
+    "npm-run-all": "^4.1.5",
     "serverless-bundle": "^4.1.0",
     "serverless-domain-manager": "^5.1.0",
     "serverless-localstack": "^0.4.28",

@@ -1,0 +1,12 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."cards"("id" bigserial NOT NULL, "stripe_card_id" text,
+      "user_id" bigint, "stripe_cardholder_id" text, PRIMARY KEY ("id") , FOREIGN
+      KEY ("user_id") REFERENCES "public"."users"("id") ON UPDATE restrict ON DELETE
+      restrict);
+  type: run_sql
+- args:
+    name: cards
+    schema: public
+  type: add_existing_table_or_view
