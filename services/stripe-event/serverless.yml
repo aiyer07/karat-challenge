@@ -22,6 +22,7 @@ provider:
   environment:
     LOCALSTACK_HOSTNAME: localhost
     STRIPE_API_KEY: sk_test_51GxIRlE8hHKqEw8LMuVCSbA9OapYX7beCPDmg2xxzMGmRmH2KL6K03URWrp67rnSKmKfy3Y0SzzpfvfB55s4q9bo00ktTUnEOT
+    STRIPE_SIGNING_SECRET: StripeWebhookSigningSecret
   apiGateway:
     minimumCompressionSize: 1024,
     shouldStartNameWithService: true
@@ -32,14 +33,14 @@ provider:
     
 functions:
   stripeEventHandler: 
-    handler: stripeEventHandler.handler
+    handler: handlers/stripeEventHandler.handler
     description: REST webhook to ingest stripe events
     events:
       - http:
           method: post
           path: stripe-event
   balanceHandler:
-    handler: balanceHandler.handler
+    handler: handlers/balanceHandler.handler
     description: Processes balance events from stripe
     events:
       - eventBridge:
@@ -50,7 +51,7 @@ functions:
             detail-type:
               - balance.available
   authorizationHandler:
-    handler: authorizationHandler.handler
+    handler: handlers/authorizationHandler.handler
     description: Processes authorization events from stripe
     events:
       - eventBridge:
@@ -62,7 +63,7 @@ functions:
               - issuing_authorization.request
               - issuing_authorization.updated
   transactionHandler:
-    handler: transactionHandler.handler
+    handler: handlers/transactionHandler.handler
     description: Processes transaction events from stripe
     events:
       - eventBridge:
