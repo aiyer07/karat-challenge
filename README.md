@@ -18,8 +18,12 @@ Simulates an AWS cloud application to handle stripe events as well as implements
 
 ### Prereqs
 1. install `docker` & `docker-compose`
-2. install `stripe-cli`
-3. install `awscli`
+2. install [`awscli`](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
+``` bash
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+sudo installer -pkg AWSCLIV2.pkg -target /
+```
+
 ### Usage
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. 
 
@@ -51,18 +55,18 @@ The application is broken into 3 parts:
 
 ### Tech Stack
 The project is a fullstack javascript app with a SQL d
-#### Tools
-- **Docker**
-- **Serverless**
-#### Cloud
-- localstack & serverless framework
-- **AWS Lambda** -
-- **AWS Api-Gateway** - *Managed api gateway*
-- **AWS Eventbridge** - *Cloud event bus*
-#### Backend
-- **Hasura** - *BaaS application used to abstract SQL database into a GraphQL server*
-- **Postgres** - *SQL Database*
-#### Frontend
-- **React/Next.js** - *Frontend web framework*
-- **Apollo Client 3** - *GraphQL client*
-- **Emotion** - *styled components library*
+* Tools
+  - Docker
+  - Serverless
+* Cloud
+  - localstack & serverless framework
+  - AWS Lambda -
+  - AWS Api-Gateway - *Managed api gateway*
+  - AWS Eventbridge - *Cloud event bus*
+* Backend
+  - Hasura - *BaaS application used to abstract SQL database into a GraphQL server*
+  - Postgres - *SQL Database*
+* Frontend
+  - React/Next.js - *Frontend web framework*
+  - Apollo Client 3 - *GraphQL client*
+  - Emotion - *styled components library*
