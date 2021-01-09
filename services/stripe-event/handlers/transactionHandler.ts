@@ -1,6 +1,8 @@
 import { GraphQLClient, gql } from 'graphql-request'
 import Stripe from 'stripe'
 import {EventBridgeEvent} from 'aws-lambda'
+
+
 const hasuraEndpoint = `http://hasura/v1/graphql`
 const graphQLClient = new GraphQLClient(hasuraEndpoint, {
   headers: {

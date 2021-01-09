@@ -3,6 +3,10 @@ tables:
 - table:
     schema: public
     name: authorizations
+  configuration:
+    custom_root_fields: {}
+    custom_column_names:
+      is_approved: isApproved
 - table:
     schema: public
     name: cards

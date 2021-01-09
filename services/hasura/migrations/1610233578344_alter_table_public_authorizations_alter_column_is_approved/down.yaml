@@ -1,0 +1,8 @@
+- args:
+    custom_column_names: {}
+    custom_root_fields: {}
+    table:
+      name: authorizations
+      schema: public
+  type: set_table_custom_fields
+  version: 2
