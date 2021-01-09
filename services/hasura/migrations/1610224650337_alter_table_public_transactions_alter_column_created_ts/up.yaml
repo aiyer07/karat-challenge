@@ -1,0 +1,12 @@
+- args:
+    custom_column_names:
+      authorization_id: authorizationId
+      card_holder_id: cardHolderId
+      card_id: cardId
+      created_ts: createdTs
+    custom_root_fields: {}
+    table:
+      name: transactions
+      schema: public
+  type: set_table_custom_fields
+  version: 2

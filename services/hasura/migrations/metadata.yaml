@@ -12,6 +12,8 @@ tables:
   configuration:
     custom_root_fields: {}
     custom_column_names:
+      card_holder_id: cardHolderId
+      created_ts: createdTs
       card_id: cardId
       authorization_id: authorizationId
   object_relationships:

@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 import * as AWS  from 'aws-sdk'
+import {APIGatewayProxyEvent, APIGatewayProxyHandler} from 'aws-lambda'
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY, {
   apiVersion: '2020-08-27',
@@ -16,14 +17,13 @@ const eventBridge: AWS.EventBridge = new AWS.EventBridge({
 
 
 
-const handler = async (event) => {
+const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
   let err = null
   try {
     const signature: string = event.headers["Stripe-Signature"]
     const secret: string = (await (secretsManager.getSecretValue({ SecretId: process.env.STRIPE_SIGNING_SECRET })).promise()).SecretString
     
     const eventReceived: Stripe.Event = stripe.webhooks.constructEvent(event.body, signature, secret)
-    
     await eventBridge.putEvents({
       Entries: [
         {

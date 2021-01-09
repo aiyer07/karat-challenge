@@ -1,15 +1,15 @@
 # SETUP RULES
-aws --endpoint=http://localhost:4566 events put-rule \
---name "StripeEvent" \
---event-bus-name "default" \
---event-pattern "{\"source\":[\"stripe\"]}" \
->/dev/null || true 
-
 # aws --endpoint=http://localhost:4566 events put-rule \
-# --name "IssuingTransaction" \
+# --name "StripeEvent" \
 # --event-bus-name "default" \
-# --event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"issuing_transaction.updated\",\"issuing_transaction.created\"]} " \
+# --event-pattern "{\"source\":[\"stripe\"]}" \
 # >/dev/null || true 
+
+aws --endpoint=http://localhost:4566 events put-rule \
+--name "IssuingTransaction" \
+--event-bus-name "default" \
+--event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"issuing_transaction.updated\",\"issuing_transaction.created\"]} " \
+>/dev/null || true 
 
 # aws --endpoint=http://localhost:4566 events put-rule \
 # --name "IssuingAuthorization" \
@@ -26,15 +26,15 @@ aws --endpoint=http://localhost:4566 events put-rule \
 echo 🍾 stripe event rules created
 
 # SET RULE TO TARGET LAMBDAS
-aws --endpoint-url=http://localhost:4566 events put-targets \
- --rule "StripeEvent" \
- --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-eventSourceHandler" \
- >/dev/null || true
-
 # aws --endpoint-url=http://localhost:4566 events put-targets \
-#  --rule "IssuingTransaction" \
-#  --targets "Id"="2","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-transactionHandler" \
+#  --rule "StripeEvent" \
+#  --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-eventSourceHandler" \
 #  >/dev/null || true
+
+aws --endpoint-url=http://localhost:4566 events put-targets \
+ --rule "IssuingTransaction" \
+ --targets "Id"="2","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-transactionHandler" \
+ >/dev/null || true
 
 #  aws --endpoint-url=http://localhost:4566 events put-targets \
 #  --rule "IssuingAuthorization" \
