@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE INDEX card_holder_hash_idx ON users USING hash (card_holder_id);
+  type: run_sql

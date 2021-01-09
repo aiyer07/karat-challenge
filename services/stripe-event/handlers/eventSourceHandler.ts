@@ -2,8 +2,8 @@ const handler = async (event) => {
   let err = null
   try {
     console.log('*************** START ********************')
-    console.log('stripeTransaction')
-    console.log("🚀 ~ file: transactionHandler.ts ~ line 10 ~ handler ~ event", event.detail.data)
+    console.log('eventSourcer')
+    console.log("🚀 ~ file: eventSourceHandler.ts ~ line 14 ~ handler ~ event.detail.data", event.detail.data)
     console.log('*******************************************')
   } catch (e) {
     err = e

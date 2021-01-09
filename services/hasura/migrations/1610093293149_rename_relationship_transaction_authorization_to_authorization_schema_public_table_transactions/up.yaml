@@ -1,0 +1,7 @@
+- args:
+    name: transaction_authorization
+    new_name: authorization
+    table:
+      name: transactions
+      schema: public
+  type: rename_relationship

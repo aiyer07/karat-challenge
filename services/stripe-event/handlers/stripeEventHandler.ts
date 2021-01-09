@@ -1,6 +1,5 @@
 import Stripe from 'stripe'
 import * as AWS  from 'aws-sdk'
-      
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY, {
   apiVersion: '2020-08-27',
@@ -14,6 +13,8 @@ const eventBridge: AWS.EventBridge = new AWS.EventBridge({
   endpoint: `http://${process.env.LOCALSTACK_HOSTNAME}:4566`,
   region: process.env.AWS_DEFAULT_REGION
 });
+
+
 
 const handler = async (event) => {
   let err = null
@@ -38,6 +39,7 @@ const handler = async (event) => {
     console.log("🚀 ~ file: stripeEventHandler.ts ~ line 40 ~ handler ~ e", e)
     console.log('******************************************')
   }
+    
   const body = err ? JSON.stringify(err) : ""
   const statusCode = err ? 500 : 200
   return { statusCode, body }

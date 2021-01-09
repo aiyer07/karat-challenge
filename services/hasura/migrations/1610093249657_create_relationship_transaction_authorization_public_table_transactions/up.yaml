@@ -1,0 +1,13 @@
+- args:
+    name: transaction_authorization
+    table:
+      name: transactions
+      schema: public
+    using:
+      manual_configuration:
+        column_mapping:
+          authorization_id: id
+        remote_table:
+          name: authorizations
+          schema: public
+  type: create_object_relationship

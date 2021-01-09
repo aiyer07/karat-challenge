@@ -1,0 +1,13 @@
+- args:
+    custom_column_names: {}
+    custom_root_fields: {}
+    table:
+      name: transactions
+      schema: public
+  type: set_table_custom_fields
+  version: 2
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."transactions" rename column "authorization_id" to "authorization";
+  type: run_sql

@@ -1,0 +1,15 @@
+- args:
+    custom_column_names:
+      authorization_id: authorizationId
+      card_id: cardId
+    custom_root_fields: {}
+    table:
+      name: transactions
+      schema: public
+  type: set_table_custom_fields
+  version: 2
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."transactions" rename column "user_id" to "card_holder_id";
+  type: run_sql

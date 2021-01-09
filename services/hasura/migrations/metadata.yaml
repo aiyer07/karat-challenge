@@ -2,10 +2,35 @@ version: 2
 tables:
 - table:
     schema: public
+    name: authorizations
+- table:
+    schema: public
     name: cards
 - table:
     schema: public
     name: transactions
+  configuration:
+    custom_root_fields: {}
+    custom_column_names:
+      card_id: cardId
+      authorization_id: authorizationId
+  object_relationships:
+  - name: authorization
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: authorizations
+        column_mapping:
+          authorization_id: id
+  - name: card
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: cards
+        column_mapping:
+          card_id: id
 - table:
     schema: public
     name: users

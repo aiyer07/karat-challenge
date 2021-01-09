@@ -1,0 +1,6 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."transactions" ADD COLUMN "card_holder_id" text NOT
+      NULL;
+  type: run_sql

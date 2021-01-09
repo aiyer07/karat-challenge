@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "test": "serverless-bundle test",
-    "deploy-local": "serverless deploy --stage local"
+    "deploy-local": "serverless deploy --stage local",
+    "deploy:transactionHandler": "sls deploy function -f transactionHandler"
   },
   "author": "Arjun",
   "dependencies": {
+    "graphql-request": "^3.4.0",
     "stripe": "^8.129.0"
   }
 }

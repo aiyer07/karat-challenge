@@ -3,12 +3,6 @@ services:
   ############################################################################################################################
   # FRONTEND APP
   ############################################################################################################################
-  stripe-cli:
-    image: stripe/stripe-cli:latest
-    container_name: stripe-cli
-    environment:
-        STRIPE_API_KEY: sk_test_51GxIRlE8hHKqEw8LMuVCSbA9OapYX7beCPDmg2xxzMGmRmH2KL6K03URWrp67rnSKmKfy3Y0SzzpfvfB55s4q9bo00ktTUnEOT
-    command: listen --forward-to http://localstack:4566/restapis/${REST_API_ID}/local/_user_request_/stripe-event
   ############################################################################################################################
   # POSTGRES
   ############################################################################################################################

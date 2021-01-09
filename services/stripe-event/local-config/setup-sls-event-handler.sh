@@ -1,42 +1,51 @@
 # SETUP RULES
 aws --endpoint=http://localhost:4566 events put-rule \
---name "IssuingTransaction" \
+--name "StripeEvent" \
 --event-bus-name "default" \
---event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"issuing_transaction.updated\",\"issuing_transaction.created\"]} " \
+--event-pattern "{\"source\":[\"stripe\"]}" \
 >/dev/null || true 
 
-# SETUP RULES
-aws --endpoint=http://localhost:4566 events put-rule \
---name "IssuingAuthorization" \
---event-bus-name "default" \
---event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"issuing_authorization.request\", \"issuing_authorization.updated\"]} " \
->/dev/null || true 
+# aws --endpoint=http://localhost:4566 events put-rule \
+# --name "IssuingTransaction" \
+# --event-bus-name "default" \
+# --event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"issuing_transaction.updated\",\"issuing_transaction.created\"]} " \
+# >/dev/null || true 
 
-# SETUP RULES
-aws --endpoint=http://localhost:4566 events put-rule \
---name "Balance" \
---event-bus-name "default" \
---event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"balance.available\"]} " \
->/dev/null || true 
+# aws --endpoint=http://localhost:4566 events put-rule \
+# --name "IssuingAuthorization" \
+# --event-bus-name "default" \
+# --event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"issuing_authorization.request\", \"issuing_authorization.updated\"]} " \
+# >/dev/null || true 
+
+# aws --endpoint=http://localhost:4566 events put-rule \
+# --name "Balance" \
+# --event-bus-name "default" \
+# --event-pattern "{\"source\":[\"stripe\"], \"detail-type\":[\"balance.available\"]} " \
+# >/dev/null || true 
 
 echo 🍾 stripe event rules created
 
 # SET RULE TO TARGET LAMBDAS
 aws --endpoint-url=http://localhost:4566 events put-targets \
- --rule "IssuingTransaction" \
- --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-transactionHandler" \
+ --rule "StripeEvent" \
+ --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-eventSourceHandler" \
  >/dev/null || true
 
- aws --endpoint-url=http://localhost:4566 events put-targets \
- --rule "IssuingAuthorization" \
- --targets "Id"="2","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-authorizationHandler" \
- >/dev/null || true
+# aws --endpoint-url=http://localhost:4566 events put-targets \
+#  --rule "IssuingTransaction" \
+#  --targets "Id"="2","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-transactionHandler" \
+#  >/dev/null || true
+
+#  aws --endpoint-url=http://localhost:4566 events put-targets \
+#  --rule "IssuingAuthorization" \
+#  --targets "Id"="3","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-authorizationHandler" \
+#  >/dev/null || true
 
 
-aws --endpoint-url=http://localhost:4566 events put-targets \
- --rule "Balance" \
- --targets "Id"="3","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-balanceHandler" \
- >/dev/null || true
+# aws --endpoint-url=http://localhost:4566 events put-targets \
+#  --rule "Balance" \
+#  --targets "Id"="4","Arn"="arn:aws:lambda:us-east-1:000000000000:function:stripe-event-local-balanceHandler" \
+#  >/dev/null || true
 
 
 echo 🥂 stripe event rule targets set
