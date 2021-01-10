@@ -1,9 +1,7 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import {TransactionAuthorizationsFragment} from './graphql/fragments'
 import clsx from 'clsx';
 import { Paper, Container, Grid, makeStyles } from '@material-ui/core';
-
+import TransactionList from './components/TransactionList'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -46,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
+    minHeight: '100px',
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
@@ -56,23 +55,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const GET_TRANSACTIONS = gql`
-  query GetTransactions {
-    transaction_authorizations {
-      ...txAuthFields
-    }
-  }
-  ${TransactionAuthorizationsFragment}
-`;
-
 function App() {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_TRANSACTIONS);
-  console.log("🚀 ~ file: App.tsx ~ line 17 ~ App ~ data", data)
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  if (loading) return <p>Loading...</p>;
-  if (error){ console.log(error); return <p>Error :(</p>;}
-
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
@@ -91,27 +76,11 @@ function App() {
         {/* Recent Transactions */}
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            {/* <Transactions /> */}
+            <TransactionList></TransactionList>
           </Paper>
         </Grid>
       </Grid>
     </Container>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
   );
 }
 
