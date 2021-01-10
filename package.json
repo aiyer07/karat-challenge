@@ -12,7 +12,8 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "services/*"
+      "services/*",
+      "ui/*"
     ],
     "nohoist": [
       "**/jest",
