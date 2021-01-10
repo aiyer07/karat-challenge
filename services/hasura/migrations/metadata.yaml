@@ -13,12 +13,22 @@ tables:
 - table:
     schema: public
     name: cards
+  configuration:
+    custom_root_fields: {}
+    custom_column_names:
+      card_holder_id: cardHolderId
   computed_fields:
   - name: totalSpend
     definition:
       function:
         schema: public
         name: total_spend
+    comment: ""
+  - name: avgSpend
+    definition:
+      function:
+        schema: public
+        name: avg_spend
     comment: ""
 - table:
     schema: public

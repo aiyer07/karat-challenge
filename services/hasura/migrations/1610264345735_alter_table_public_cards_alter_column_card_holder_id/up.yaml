@@ -1,0 +1,9 @@
+- args:
+    custom_column_names:
+      card_holder_id: cardHolderId
+    custom_root_fields: {}
+    table:
+      name: cards
+      schema: public
+  type: set_table_custom_fields
+  version: 2

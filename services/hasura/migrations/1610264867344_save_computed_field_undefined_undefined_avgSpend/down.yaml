@@ -1,0 +1,6 @@
+- args:
+    name: avgSpend
+    table:
+      name: cards
+      schema: public
+  type: drop_computed_field
