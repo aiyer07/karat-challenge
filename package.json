@@ -2,6 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "clean": "rm -rf node_modules && lerna run clean",
+    "dashboard": "lerna exec --scope=@karat/dashboard -- yarn start",
     "stripe-sls-system": "npm-run-all -s stripe-sls-events stripe-event-forwarder",
     "stripe-sls-events": "lerna exec --scope=@karat/stripe -- yarn deploy-local",
     "stripe-event-forwarder": "lerna exec --scope=@karat/stripe -- bash local-config/setup-sls-event-handler.sh",

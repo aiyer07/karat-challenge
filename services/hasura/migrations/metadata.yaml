@@ -17,7 +17,9 @@ tables:
   configuration:
     custom_root_fields: {}
     custom_column_names:
+      merchant_category: merchantCategory
       card_holder_id: cardHolderId
+      merchant_name: merchantName
       created_ts: createdTs
       card_id: cardId
       authorization_id: authorizationId

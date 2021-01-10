@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "test": "serverless-bundle test",
+    "clean": "rm -rf node_modules && rm -rf ./dist",
     "deploy-local": "serverless deploy --stage local",
-    "deploy:transactionHandler": "sls deploy function -f transactionHandler"
+    "deploy:transactionHandler": "sls deploy function -f transactionHandler",
+    "build": "echo lambdas are not built locally"
   },
   "author": "Arjun",
   "dependencies": {
