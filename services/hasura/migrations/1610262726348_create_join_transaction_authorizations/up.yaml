@@ -1,0 +1,14 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: "CREATE VIEW transaction_authorizations AS \nSelect coalesce(t.id, a.id)
+      as id, t.id as txId, t.amount, coalesce(t.created_ts, a.created_ts) as createdTs,\ncoalesce(t.merchant_name,
+      a.merchant_name) as merchantName, coalesce(t.merchant_category, a.merchant_category)
+      as merchantCategory,\na.id as authId,  a.is_approved as isApproved from authorizations
+      a\nleft join transactions t\non t.authorization_id = a.id\norder by coalesce(t.created_ts,
+      a.created_ts);"
+  type: run_sql
+- args:
+    name: transaction_authorizations
+    schema: public
+  type: add_existing_table_or_view

@@ -1,0 +1,11 @@
+- args:
+    custom_column_names:
+      created_ts: createdTs
+      is_approved: isApproved
+      merchant_name: merchantName
+    custom_root_fields: {}
+    table:
+      name: authorizations
+      schema: public
+  type: set_table_custom_fields
+  version: 2

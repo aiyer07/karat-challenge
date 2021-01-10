@@ -12,7 +12,7 @@ const graphQLClient = new GraphQLClient(hasuraEndpoint, {
 
 const addStripeTransactionMutation = gql`
     mutation AddStripeTransaction($txId: String!, $amount: Int!, $authId: String!, $cardId: String!, $cardHolderId: String!, $createdTs: Int!, $merchantName: String!, $merchantCategory: String!) {
-      insert_transactions_one(object: {id: $txId, amount: $amount, authorizationId: $authId, cardId: $cardId, cardHolderId: $cardHolderId, merchant_name: $merchantName, merchant_category: $merchantCategory, createdTs:$createdTs}) {
+      insert_transactions_one(object: {id: $txId, amount: $amount, authorizationId: $authId, cardId: $cardId, cardHolderId: $cardHolderId, merchantName: $merchantName, merchantCategory: $merchantCategory, createdTs:$createdTs}) {
         id
       }
     }

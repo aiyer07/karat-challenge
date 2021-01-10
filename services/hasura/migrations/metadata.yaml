@@ -6,11 +6,25 @@ tables:
   configuration:
     custom_root_fields: {}
     custom_column_names:
+      merchant_category: merchantCategory
       is_approved: isApproved
+      merchant_name: merchantName
       created_ts: createdTs
 - table:
     schema: public
     name: cards
+- table:
+    schema: public
+    name: transaction_authorizations
+  configuration:
+    custom_root_fields: {}
+    custom_column_names:
+      createdts: createdTs
+      merchantname: merchantName
+      isapproved: isApproved
+      merchantcategory: merchantCategory
+      authid: authId
+      txid: txId
 - table:
     schema: public
     name: transactions
