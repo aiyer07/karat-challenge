@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."authorizations" ADD COLUMN "created_ts" integer NULL;
+  type: run_sql
