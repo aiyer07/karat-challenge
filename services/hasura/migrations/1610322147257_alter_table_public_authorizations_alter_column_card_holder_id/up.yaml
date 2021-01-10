@@ -1,0 +1,20 @@
+- args:
+    custom_column_names:
+      card_holder_id: cardHolderId
+      card_id: cardId
+      created_ts: createdTs
+      is_approved: isApproved
+      merchant_category: merchantCategory
+      merchant_name: merchantName
+    custom_root_fields: {}
+    table:
+      name: authorizations
+      schema: public
+  type: set_table_custom_fields
+  version: 2
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."authorizations" ALTER COLUMN "card_holder_id" SET NOT
+      NULL;
+  type: run_sql

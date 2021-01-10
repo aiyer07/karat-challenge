@@ -1,0 +1,24 @@
+- args:
+    permission:
+      allow_aggregations: false
+      backend_only: false
+      columns:
+      - id
+      - txid
+      - amount
+      - createdts
+      - merchantname
+      - merchantcategory
+      - authid
+      - isapproved
+      - userid
+      computed_fields: []
+      filter:
+        userid:
+          _eq: X-Hasura-User-Id
+      limit: null
+    role: cardholder
+    table:
+      name: transaction_authorizations
+      schema: public
+  type: create_select_permission

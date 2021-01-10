@@ -8,8 +8,10 @@ tables:
     custom_column_names:
       merchant_category: merchantCategory
       is_approved: isApproved
+      card_holder_id: cardHolderId
       merchant_name: merchantName
       created_ts: createdTs
+      card_id: cardId
 - table:
     schema: public
     name: cards
@@ -39,9 +41,26 @@ tables:
       createdts: createdTs
       merchantname: merchantName
       isapproved: isApproved
+      userid: userId
       merchantcategory: merchantCategory
       authid: authId
       txid: txId
+  select_permissions:
+  - role: cardholder
+    permission:
+      columns:
+      - id
+      - txid
+      - amount
+      - createdts
+      - merchantname
+      - merchantcategory
+      - authid
+      - isapproved
+      - userid
+      filter:
+        userid:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: transactions

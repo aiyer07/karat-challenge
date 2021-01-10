@@ -1,0 +1,12 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: "CREATE OR REPLACE VIEW \"public\".\"transaction_authorizations\" AS \n SELECT\n
+      \ COALESCE(t.id, a.id) AS id,\n  t.id AS txid,\n  t.amount,\n  COALESCE(t.created_ts,
+      a.created_ts) AS createdts,\n  COALESCE(t.merchant_name, a.merchant_name) AS
+      merchantname,\n  COALESCE(t.merchant_category, a.merchant_category) AS merchantcategory,\n
+      \ a.id AS authid,\n  a.is_approved AS isapproved,\n  u.id as userId\nFROM\n
+      \ (\n    authorizations a\n    LEFT JOIN transactions t ON ((t.authorization_id
+      = a.id))\n    JOIN users u ON u.card_holder_id = COALESCE(t.card_holder_id,
+      a.card_holder_id)\n  );"
+  type: run_sql
