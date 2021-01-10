@@ -11,8 +11,8 @@ const graphQLClient = new GraphQLClient(hasuraEndpoint, {
 })
 
 const addStripeAuthorizationMutation = gql`
-    mutation AddStripeAuthorization($authId: String!, $isApproved: Boolean!) {
-      insert_authorizations_one(object: {id: $authId, isApproved: $isApproved}) {
+    mutation AddStripeAuthorization($authId: String!, $isApproved: Boolean!, $createdTs: Int!) {
+      insert_authorizations_one(object: {id: $authId, isApproved: $isApproved, createdTs: $createdTs}) {
         id
       }
     }
@@ -26,7 +26,8 @@ const createAuth = async (event) => {
   console.log("🚀 ~ file: authorizationHandler.ts ~ line 26 ~ authCreated ~ event", event)
   const variables = {
     authId: event.id,
-    isApproved: event.approved
+    isApproved: event.approved,
+    createdTs: +event.created
   }
   return graphQLClient.request(addStripeAuthorizationMutation, variables)
 }

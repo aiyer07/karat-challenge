@@ -7,6 +7,7 @@ tables:
     custom_root_fields: {}
     custom_column_names:
       is_approved: isApproved
+      created_ts: createdTs
 - table:
     schema: public
     name: cards

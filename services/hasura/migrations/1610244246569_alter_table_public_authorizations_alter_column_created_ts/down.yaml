@@ -1,0 +1,15 @@
+- args:
+    custom_column_names:
+      is_approved: isApproved
+    custom_root_fields: {}
+    table:
+      name: authorizations
+      schema: public
+  type: set_table_custom_fields
+  version: 2
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."authorizations" ALTER COLUMN "created_ts" DROP NOT
+      NULL;
+  type: run_sql
