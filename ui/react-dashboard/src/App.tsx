@@ -2,15 +2,15 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useQuery, gql } from '@apollo/client';
-import {TransactionsFragment} from './graphql/fragments'
+import {TransactionAuthorizationsFragment} from './graphql/fragments'
 
 const GET_TRANSACTIONS = gql`
   query GetTransactions {
-    transactions {
-      ...transactionFields
+    transaction_authorizations {
+      ...txAuthFields
     }
   }
-  ${TransactionsFragment}
+  ${TransactionAuthorizationsFragment}
 `;
 
 function App() {

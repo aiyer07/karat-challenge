@@ -13,6 +13,13 @@ tables:
 - table:
     schema: public
     name: cards
+  computed_fields:
+  - name: totalSpend
+    definition:
+      function:
+        schema: public
+        name: total_spend
+    comment: ""
 - table:
     schema: public
     name: transaction_authorizations

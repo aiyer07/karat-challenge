@@ -1,0 +1,12 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: |-
+      CREATE FUNCTION total_spend(card_row cards)
+      RETURNS BIGINT AS $$
+        SELECT SUM(t.amount) as total_spend
+        FROM transactions t
+        WHERE card_id = card_row.id
+        GROUP BY t.card_id
+      $$ LANGUAGE sql STABLE;
+  type: run_sql

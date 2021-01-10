@@ -9,3 +9,13 @@ export const TransactionsFragment = gql`
     createdTs
   }
 `
+export const TransactionAuthorizationsFragment = gql`
+  fragment txAuthFields on transaction_authorizations {
+    id
+    amount
+    merchantName
+    merchantCategory
+    createdTs
+    isApproved
+  }
+`

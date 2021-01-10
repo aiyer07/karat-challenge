@@ -1,0 +1,11 @@
+- args:
+    comment: ""
+    definition:
+      function:
+        name: total_spend
+        schema: public
+    name: totalSpend
+    table:
+      name: cards
+      schema: public
+  type: add_computed_field
