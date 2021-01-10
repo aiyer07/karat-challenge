@@ -19,6 +19,15 @@ tables:
     custom_root_fields: {}
     custom_column_names:
       card_holder_id: cardHolderId
+  object_relationships:
+  - name: card_user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        column_mapping:
+          card_holder_id: card_holder_id
   computed_fields:
   - name: totalSpend
     definition:
@@ -32,6 +41,19 @@ tables:
         schema: public
         name: avg_spend
     comment: ""
+  select_permissions:
+  - role: cardholder
+    permission:
+      columns:
+      - id
+      - card_holder_id
+      computed_fields:
+      - avgSpend
+      - totalSpend
+      filter:
+        card_user:
+          id:
+            _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: transaction_authorizations
@@ -93,3 +115,15 @@ tables:
 - table:
     schema: public
     name: users
+  select_permissions:
+  - role: cardholder
+    permission:
+      columns:
+      - id
+      - fname
+      - lname
+      - username
+      - card_holder_id
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
