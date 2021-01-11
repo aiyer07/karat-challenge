@@ -30,12 +30,12 @@ brew install yarn
 ### Usage
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users preseeded in the database.
 
-##### Turn on Web-App
+#### Turn on Web-App
 1. Run `docker-compose up -d dashboard` to enable the frotnend app, backend (hasura) and database (postgres).
 2. Run `yarn run migrations` to structure the database
 3. Run `yarn run seeds` to preseed the database
 4. Navigate to localhost:3000 to view the dashboard (default set to user_id `332787f1-1814-47e1-870e-2b9be86d1533` which over a thousand records)
-##### Turn on Serverless Event System
+#### Turn on Serverless Event System
 1.  Run `docker-compose up -d localstack`. Ensure that this step has completed by checking `localhost:4566/health` and verifying that all services are 'running'. (remove the `-d` if you'd like to see the lambdas & serverless enviornment logs, you will need to open new terminals for the remaining steps in this case)
 2.  Run `yarn run stripe-sls-sytem`. This will deploy all serverless components and startup the stripe event forwarding on your machine as the last step. Ensure this step is completed before moving on to the next. Do not terminate this terminal
 3. Copy the webhook signing secret from the terminal above.
@@ -43,13 +43,13 @@ This project is setup as a mono-repo and includes all the components necessary t
 5. Go to the stripe dashboard and add authorizations. Note that closing the stripe event terminal will terminate the connection and you will need to run steps 3 through 5 again
 
 
-##### Adding New Users
+#### Adding New Users
 To add a new user you must update the `users` and `cards` table in postgres.
 1. Find and copy the desired cardholder_id on stripe `ich_xxx` 
 2. Add a user row to the postgres table `users` using the card_holder_id from above (ignore user_id column)
 3. Find and copy a stripe `card_id` from the above cardholder_id `ic_xxx` 
 4. Add a card row to the postgres table `cards` using the `card_id` and `card_holder_id` above
-##### Switching Users
+#### Switching Users
 By default the data being viewed is of userId `` which has over 1000 transactions and authorizations. In order to view different user follow these steps
 1. Navigate to `./ui/react-dashboard/src/index.tsx`
 2. Update line 28 to be `'x-hasura-user-id': '<user_id>'`
@@ -61,11 +61,11 @@ By default the data being viewed is of userId `` which has over 1000 transaction
  - c642670b-327c-4c2c-85cd-e01bcefa0331
  - 139b9f47-f9f6-4a58-92d0-9b1f571a4523
  ```
-##### Viewing Hasura Console
+#### Viewing Hasura Console
 You may wish to see some of the graphql relationships & sql functions used. This console can visualize this for you and runs by default when the container is on. It can also serve as an easy way of viewing and modify the SQL database if you do not have a client of your own
 1. Ensure hasura container is running or run `docker-compose up -d hasura`
 2. Navigate to `localhost:3010`
-##### Connecting directly to the postgres instance
+#### Connecting directly to the postgres instance
 Below are the connection details for connecting your SQL client to the running postgres instance:
 ```
 Host: localhost
