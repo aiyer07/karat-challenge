@@ -50,12 +50,12 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    height: '50vh',
+    height: '42vh',
     display: 'flex',
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 300,
+    height: 320,
   },
   seeMore: {
   },

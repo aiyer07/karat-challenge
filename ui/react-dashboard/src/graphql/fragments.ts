@@ -22,6 +22,7 @@ export const TransactionAuthorizationsFragment = gql`
 
 export const TransactionAggregationFragment = gql`
   fragment cardAggFields on cards {
+    id
     totalSpend
     avgSpend
   }

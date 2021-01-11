@@ -19,6 +19,7 @@ const useStyles = makeStyles({
 const GET_TRANSACTION_METRICS = gql`
   query TransactionMetricQuery {
     cards {
+      id
       transactionsByCategory {
         merchantCategory
         numTx
@@ -28,35 +29,15 @@ const GET_TRANSACTION_METRICS = gql`
   ${TransactionAggregationFragment}
 `
 
-const fakeD: any[] = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-  { name: 'Group E', value: 200 },
-  { name: 'Group F', value: 200 },
-  { name: 'Group G', value: 200 },
-];
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-const RADIAN = Math.PI / 180;
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#651fff', '#f50057'];
 
-const renderLabel = ({
-  cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-}: any) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
+const renderLabel = ({merchantCategory, percent}: any) => {
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
+    `${(percent * 100).toFixed(0)}% ${merchantCategory}`
   );
 }
 
 const TransactionCategoryChart = () => {
-  const classes = useStyles();
-
   const { loading, error, data } = useQuery(GET_TRANSACTION_METRICS);
   
   if (loading) return (<CardLoader></CardLoader>)
@@ -71,7 +52,6 @@ const TransactionCategoryChart = () => {
         <Pie
           data={transactionsByCategory}
           label={renderLabel}
-          labelLine={false}
           fill="#8884d8"
           dataKey="numTx"
         >
