@@ -28,8 +28,8 @@ const TransactionMetrics = () => {
   
   if (loading) return (<CardLoader></CardLoader>)
 
-  const { cards } = data
-  const {avgSpend, totalSpend} = cards[0]
+  const { cards } = data || {}
+  const {avgSpend, totalSpend} = cards[0] || { avgSpend: '-', totalSpend: '-' }
   return (
     <>
     <Title>Metrics</Title>

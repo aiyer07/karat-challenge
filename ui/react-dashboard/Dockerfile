@@ -18,15 +18,8 @@ ARG NODE_ENV
 ENV NODE_ENV=$NODE_ENV
 #Copy top level dependencies
 COPY ./package.json /usr/app
-
-
-#Copy library dependencies
-COPY ./lib/components-lib /usr/app/lib/components-lib
-COPY ./lib/widgets /usr/app/lib/widgets
-
 #Copy service package.json
-COPY ./ui/web/package.json /usr/app/ui/web/package.json
-
+COPY ./ui/react-dashboard/package.json /usr/app/ui/react-dashboard/package.json
 #Install and hoist all node_modules
 RUN yarn install
 
@@ -40,11 +33,8 @@ COPY ./package.json /usr/app
 #Copy node modules from dependencies stage
 COPY --from=BUILD-DEPENDENCIES /usr/app/node_modules /usr/app/node_modules
 
-#Copy library code
-COPY --from=BUILD-DEPENDENCIES /usr/app/lib /usr/app/lib
-
 #Copy service
-COPY ./ui/web /usr/app/ui/web
+COPY ./ui/react-dashboard /usr/app/ui/react-dashboard
 
 #Install and hoist all node_modules
 RUN yarn workspaces run build
@@ -54,7 +44,6 @@ WORKDIR /usr/app
 EXPOSE 80
 ARG NODE_ENV
 ENV NODE_ENV=$NODE_ENV
-# COPY --from=ENV /usr/local/lib/node_modules/lerna /usr/local/lib/node_modules/lerna
 COPY ./lerna.json /usr/app
 # install lerna
 RUN npm i -g lerna
@@ -63,4 +52,4 @@ COPY --from=ENV /etc /etc
 COPY --from=BUILD-SERVICE /usr/app /usr/app
 
 
-CMD ["/bin/sh", "-c", "/usr/app/ui/web/entrypoint.sh"]
+CMD ["yarn", "run", "dashboard"]

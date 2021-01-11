@@ -20,7 +20,7 @@ const GET_TRANSACTION_METRICS = gql`
   ${TransactionAggregationFragment}
 `
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#651fff', '#f50057'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#651fff', '#f50057', '#76ff03'];
 
 const renderLabel = ({merchantCategory, percent}: any) => {
   return (
@@ -33,8 +33,8 @@ const TransactionCategoryChart = () => {
   
   if (loading) return (<CardLoader></CardLoader>)
 
-  const { cards } = data
-  const {transactionsByCategory} = cards[0]
+  const { cards } = data || {}
+  const {transactionsByCategory} = cards[0] || { transactionsByCategory: [] }
   return (
     <>
     <Title>Category Analysis</Title>

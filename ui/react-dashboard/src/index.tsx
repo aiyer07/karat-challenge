@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import App from './App';
@@ -25,17 +24,17 @@ const client = new ApolloClient({
   uri: 'http://localhost:3010/v1/graphql',
   cache: cache,
   headers: {
-    'x-hasura-admin-secret': 'myadminsecretkey'
+    'x-hasura-role': 'cardholder',
+    'x-hasura-user-id': '332787f1-1814-47e1-870e-2b9be86d1533'
   }
 });
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
       <Router>
         <ApolloProvider client={client}>
-          <App />
+            <App />
         </ApolloProvider>
       </Router>
   </ThemeProvider>,

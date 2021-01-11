@@ -3,6 +3,19 @@ services:
   ############################################################################################################################
   # FRONTEND APP
   ############################################################################################################################
+  dashboard: 
+    container_name: dashboard
+    build:
+      context: .
+      dockerfile: ./ui/react-dashboard/Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./ui/react-dashboard:/usr/app/ui/react-dashboard
+    depends_on:
+      - hasura
+    networks:
+      - dock-net
   ############################################################################################################################
   # POSTGRES
   ############################################################################################################################
@@ -35,8 +48,8 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_DEV_MODE: "true"
-      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
-      HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      # HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS512", "key": "-----BEGIN CERTIFICATE-----\nMIIDBzCCAe+gAwIBAgIJR9pWwy42GXWLMA0GCSqGSIb3DQEBCwUAMCExHzAdBgNV\nBAMTFmFyanVuLWRldi51cy5hdXRoMC5jb20wHhcNMjAxMjI4MDExOTA3WhcNMzQw\nOTA2MDExOTA3WjAhMR8wHQYDVQQDExZhcmp1bi1kZXYudXMuYXV0aDAuY29tMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwqyVGg8L89282oiufQVSmHZR\nrUm7Y47Qw+Kro/kqcIWtKcmTB3oYhsXI+PCwWm8t6NjKRn1zG613/e5xZAgf7jAm\nMcD5kTM7kdmHYuhPl1a+lNNOOUgeBNaPppx6JQXZdtr5fH3vJxb3DZAR3PfOAwZr\nIilEMgAOPqJX56LcVNXO6Zlmi4WKy2FDBlx3qIKzsp1bkhTGdpSzWoQHsGioD8S5\nUaQagEmYXfufj9r5wC5+a9mtQdvc/sbXUQCu8TA04hgO4bqio5reXfDyZD5z33Kr\n8TKkXu9GbRqN+FQVs5EuKiDfQE1b/GoYV2N+K47pklHupiV69SxbyRq6TVlrQQID\nAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRVPpsRFTws2+8vZw4b\nCI1M/t1Y2zAOBgNVHQ8BAf8EBAMCAoQwDQYJKoZIhvcNAQELBQADggEBAIWHFraJ\nG/gwOu06MfuFyurAVyaNA+NO/BfGh1O2jQT8A9Jq5/fVrJOkg7omqmi4r5a3t39F\nVRAALKx1Za2Eg0S2fBKydizRanagVmalPOfveqRKphMYCnXfeL0ThLcnGF3mRpP9\nb+rLGAexhxsRjSQ/TabNW49ilBsLC63MT2KjaMGRP/G9EYraFcgI9hRXXiT2vkm+\njc5aCQpPm/DJPNHQJV6O/Y5JwcnBH0vi5r7PqWuaeEtPYpi+5p6RLw7DpWg0DfFs\nQFiwHXuuHwckkYUIHmZ2Y4UGHCBKb/0h18fE6YdKutzU0dOT+PxxbVUF+z2ITAiA\nrlcCIMLeYZtwAL0=\n-----END CERTIFICATE-----"}'
     command:
       ['graphql-engine', 'serve', '--server-port', '80', '--enable-console']
     networks:
@@ -45,6 +58,7 @@ services:
   # AWS APIGATEWAY, EVENTBRIDGE & LAMBDA
   ############################################################################################################################
   localstack:
+    container_name: localstack
     image: localstack/localstack:latest
     ports:
       - '4563-4599:4563-4599'
