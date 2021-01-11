@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import {Title} from '../Title';
@@ -25,8 +24,8 @@ const GET_TRANSACTION_METRICS = gql`
 const TransactionMetrics = () => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(GET_TRANSACTION_METRICS);
-  console.log("🚀 ~ file: index.tsx ~ line 29 ~ TransactionMetrics ~ data", data)
+  const { loading, data } = useQuery(GET_TRANSACTION_METRICS);
+  
   if (loading) return (<CardLoader></CardLoader>)
 
   const { cards } = data

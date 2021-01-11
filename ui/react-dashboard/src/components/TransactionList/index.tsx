@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList } from "react-window";
@@ -7,7 +7,6 @@ import InfiniteLoader from "react-window-infinite-loader";
 import { useQuery, gql } from "@apollo/client";
 import { TransactionAuthorizationsFragment } from "../../graphql/fragments";
 import CardLoader from './../CardLoader'
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import {Title} from './../Title'
 interface TAProps {
   createdTs: string,
@@ -32,7 +31,7 @@ const TRANSACTION_LIMIT: number = 10
 const TransactionList = () => {
   
   // query transactions
-  const { loading, error, data, fetchMore } = useQuery(GET_TRANSACTIONS, {
+  const { loading, data, fetchMore } = useQuery(GET_TRANSACTIONS, {
     variables: {
       limit: TRANSACTION_LIMIT,
       offset: 0

@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { Paper, Container, Grid, makeStyles } from '@material-ui/core';
 import TransactionList from './components/TransactionList'
 import TransactionMetrics from './components/TransactionMetrics'
-import { Link, List } from "@material-ui/core";
 import TransactionCategoryChart from './components/TransactionCategoryChart';
 
 
