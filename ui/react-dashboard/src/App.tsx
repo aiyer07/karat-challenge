@@ -2,6 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import { Paper, Container, Grid, makeStyles } from '@material-ui/core';
 import TransactionList from './components/TransactionList'
+import { Link, List } from "@material-ui/core";
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -51,7 +54,9 @@ const useStyles = makeStyles((theme) => ({
   },
   fixedHeight: {
     height: 240,
-  }
+  },
+  seeMore: {
+  },
 }));
 
 

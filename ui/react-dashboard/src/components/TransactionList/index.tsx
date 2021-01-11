@@ -1,31 +1,20 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
+import InfiniteLoader from "react-window-infinite-loader";
 import { useQuery, gql } from "@apollo/client";
 import { TransactionAuthorizationsFragment } from "../../graphql/fragments";
 import CardLoader from './../CardLoader'
-import { makeStyles, Link, List } from "@material-ui/core";
-
+import Typography from '@material-ui/core/Typography';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 interface TAProps {
   createdTs: string,
   amount: string,
   merchantName: string,
   merchantCategory: string,
   isApproved: boolean
-}
-
-const renderRow = (props: TAProps, rowNum: number) => {
-console.log("🚀 ~ file: index.tsx ~ line 20 ~ renderRow ~ props", props)
-  return (
-    <ListItem button key={rowNum}>
-      <ListItemText primary={props.createdTs} />
-      <ListItemText primary={props.merchantName} />
-      <ListItemText primary={props.isApproved ? 'Approved' : 'Declined'} />
-      <ListItemText primary={props.amount} />
-    </ListItem>
-  );
 }
 
 const GET_TRANSACTIONS = gql`
@@ -37,32 +26,35 @@ const GET_TRANSACTIONS = gql`
   ${TransactionAuthorizationsFragment}
   `;
 
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
+const TRANSACTION_LIMIT: number = 10
 
 
 const TransactionList = () => {
-  const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
+  
+  // query transactions
+  const { loading, error, data, fetchMore } = useQuery(GET_TRANSACTIONS, {
     variables: {
-      limit: 15,
+      limit: TRANSACTION_LIMIT,
       offset: 0
     }
   });
+
+
+  const containerRef: any = useBottomScrollListener(() => {
+    console.log('hello')
+  });
+
   if (loading) return (<CardLoader></CardLoader>)
+
+  // destructure transactions out of data
   let { transactionAuthorizations } = data
-  console.log("🚀 ~ file: index.tsx ~ line 58 ~ TransactionList ~ transactionAuthorizations", transactionAuthorizations)
-  const showMore = (clickEvent: React.MouseEvent) => {
-    clickEvent.preventDefault();
-  }
-  transactionAuthorizations = transactionAuthorizations.concat(transactionAuthorizations).concat(transactionAuthorizations)
+  
+
+  // returns a single row for a given index the list is in
   const row = ({index, style}: any) => {
     const ta: TAProps = transactionAuthorizations[index]
     return (
-      <ListItem button key={index} style={style}>
+      <ListItem key={index} style={style}>
         <ListItemText primary={ta.createdTs} />
         <ListItemText primary={ta.merchantName} />
         <ListItemText primary={ta.isApproved ? 'Approved' : 'Declined'} />
@@ -71,32 +63,49 @@ const TransactionList = () => {
     )
   }
 
+  const isItemLoaded = (index: number) => {
+    return index < transactionAuthorizations.length - 1
+  };
+
+  const loadMore = () => {
+    return fetchMore({
+      variables: {
+        limit: TRANSACTION_LIMIT,
+        offset: transactionAuthorizations.length
+      }
+    })
+  }
+  // virtualized list handler for handling large number of rows
   return (
     <React.Fragment>
-      <AutoSizer>
-        {
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+        Transactions
+      </Typography>
+       <AutoSizer>
+         {
           ({height, width}) => (
-            <FixedSizeList 
-            height={height}
-            width={width}
-            itemSize={42}
-            itemCount={transactionAuthorizations.length}>
-              {/* {
-                transactionAuthorizations.map((ta: any, i: number) => {
-                  console.log("🚀 ~ file: index.tsx ~ line 67 ~ transactionAuthorizations.map ~ ta", ta)
-                  return renderRow(ta, i)
-                })
-              } */}
-              {row}
-            </FixedSizeList>
+            <InfiniteLoader
+            isItemLoaded={isItemLoaded}
+            itemCount={transactionAuthorizations.length}
+            loadMoreItems={loadMore}
+            threshold={1}
+          >
+            {({ onItemsRendered, ref }) => (
+              <FixedSizeList
+              ref={ref}
+              height={height - 30}
+              width={width}
+              onItemsRendered={onItemsRendered}
+              itemSize={45}
+              itemCount={transactionAuthorizations.length}>
+                {row}
+              </FixedSizeList>
+            )}
+            </InfiniteLoader>
           )
         }
       </AutoSizer>
-      {/* <div className={classes.seeMore}>
-      <Link color="primary" href="#" onClick={showMore}>
-        See more transactions
-      </Link>
-    </div> */}
+      
   </React.Fragment>
   );
 }

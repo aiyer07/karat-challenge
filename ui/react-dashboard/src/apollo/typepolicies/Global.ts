@@ -2,9 +2,10 @@ export default function globalTP() {
   return {
     Query: {
       fields: {
-        transaction_authorizations: {
+        transactionAuthorizations: {
           keyArgs: [],
           merge(existing = [], incoming: any[]) {
+            console.log("🚀 ~ file: Global.ts ~ line 8 ~ merge ~ incoming", incoming)
             return [...existing, ...incoming]
           }
         }
