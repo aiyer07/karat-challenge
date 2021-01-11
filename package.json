@@ -8,8 +8,9 @@
     "stripe-sls-events": "lerna exec --scope=@karat/stripe -- yarn deploy-local",
     "stripe-event-forwarder": "lerna exec --scope=@karat/stripe -- bash local-config/setup-sls-event-handler.sh",
     "store-stripe-signing-secret": "lerna exec --scope=@karat/stripe -- bash local-config/store-signing-secret.sh",
-    "hasura-console": "lerna exec --scope=@everydae/hasura -- hasura console --endpoint http://127.0.0.1:3010 --admin-secret=myadminsecretkey",
-    "migrations": "lerna exec --scope=@everydae/hasura -- hasura migrate apply --endpoint http://127.0.0.1:3010 --admin-secret=mysecretadminkey"
+    "hasura-console": "lerna exec --scope=@karat/hasura -- hasura console --endpoint http://127.0.0.1:3010 --admin-secret=myadminsecretkey",
+    "migrations": "lerna exec --scope=@karat/hasura -- hasura migrate apply --endpoint http://127.0.0.1:3010 --admin-secret=mysecretadminkey",
+    "seeds": "lerna exec --scope=@karat/hasura -- hasura seeds apply --endpoint http://127.0.0.1:3010 --admin-secret=mysecretadminkey"
   },
   "workspaces": {
     "packages": [
