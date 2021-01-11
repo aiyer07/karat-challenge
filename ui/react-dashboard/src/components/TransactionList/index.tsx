@@ -7,8 +7,8 @@ import InfiniteLoader from "react-window-infinite-loader";
 import { useQuery, gql } from "@apollo/client";
 import { TransactionAuthorizationsFragment } from "../../graphql/fragments";
 import CardLoader from './../CardLoader'
-import Typography from '@material-ui/core/Typography';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import {Title} from './../Title'
 interface TAProps {
   createdTs: string,
   amount: string,
@@ -37,11 +37,6 @@ const TransactionList = () => {
       limit: TRANSACTION_LIMIT,
       offset: 0
     }
-  });
-
-
-  const containerRef: any = useBottomScrollListener(() => {
-    console.log('hello')
   });
 
   if (loading) return (<CardLoader></CardLoader>)
@@ -78,9 +73,7 @@ const TransactionList = () => {
   // virtualized list handler for handling large number of rows
   return (
     <React.Fragment>
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>
-        Transactions
-      </Typography>
+      <Title>Transactions</Title>
        <AutoSizer>
          {
           ({height, width}) => (

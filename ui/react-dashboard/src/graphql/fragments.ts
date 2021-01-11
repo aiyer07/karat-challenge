@@ -19,3 +19,10 @@ export const TransactionAuthorizationsFragment = gql`
     isApproved
   }
 `
+
+export const TransactionAggregationFragment = gql`
+  fragment cardAggFields on cards {
+    totalSpend
+    avgSpend
+  }
+`

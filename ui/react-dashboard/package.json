@@ -14,6 +14,7 @@
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",
     "@types/react-window-infinite-loader": "^1.0.3",
+    "@types/recharts": "^1.8.18",
     "graphql": "^14.5.8",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
@@ -25,6 +26,7 @@
     "react-virtualized-auto-sizer": "^1.0.3",
     "react-window": "^1.8.6",
     "react-window-infinite-loader": "^1.0.5",
+    "recharts": "1.8.5",
     "typescript": "^4.0.3"
   },
   "scripts": {

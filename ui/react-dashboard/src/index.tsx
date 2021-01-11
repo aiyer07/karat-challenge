@@ -10,12 +10,14 @@ import { ApolloProvider } from '@apollo/client';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import merge from 'lodash/merge'
 import TransactionAuthorizationsTP from './apollo/typepolicies/TransactionAuthorization'
+import CardsTP from './apollo/typepolicies/Cards'
 import GlobalTP from './apollo/typepolicies/Global'
 
 const cache = new InMemoryCache({
   typePolicies: merge(
     GlobalTP(),
-    TransactionAuthorizationsTP()
+    TransactionAuthorizationsTP(),
+    CardsTP()
   ),
 });
 

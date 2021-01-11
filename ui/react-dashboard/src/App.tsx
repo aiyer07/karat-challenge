@@ -2,7 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import { Paper, Container, Grid, makeStyles } from '@material-ui/core';
 import TransactionList from './components/TransactionList'
+import TransactionMetrics from './components/TransactionMetrics'
 import { Link, List } from "@material-ui/core";
+import TransactionCategoryChart from './components/TransactionCategoryChart';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -69,13 +71,13 @@ function App() {
         {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            {/* <Chart /> */}
+          <TransactionCategoryChart></TransactionCategoryChart>
           </Paper>
         </Grid>
         {/* Recent Deposits */}
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
-            {/* <Deposits /> */}
+            <TransactionMetrics></TransactionMetrics>
           </Paper>
         </Grid>
         {/* Recent Transactions */}
