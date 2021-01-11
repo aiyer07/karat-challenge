@@ -6,25 +6,31 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { useQuery, gql } from "@apollo/client";
 import { TransactionAuthorizationsFragment } from "../../graphql/fragments";
 import CardLoader from './../CardLoader'
-import { makeStyles, Link } from "@material-ui/core";
+import { makeStyles, Link, List } from "@material-ui/core";
 
+interface TAProps {
+  createdTs: string,
+  amount: number,
+  merchantName: string,
+  merchantCategory: string,
+  isApproved: boolean
+}
 
-
-const renderRow = (props: any) => {
-  const { index, style } = props;
+const renderRow = (props: TAProps, rowNum: number) => {
+console.log("🚀 ~ file: index.tsx ~ line 20 ~ renderRow ~ props", props)
   return (
-    <ListItem button style={style} key={index}>
-      <ListItemText primary={`Item ${index + 1}`} />
-      <ListItemText primary={`Item ${index + 1}`} />
-      <ListItemText primary={`Item ${index + 1}`} />
-      <ListItemText primary={`Item ${index + 1}`} />
+    <ListItem button key={rowNum}>
+      <ListItemText primary={props.createdTs} />
+      <ListItemText primary={props.merchantName} />
+      <ListItemText primary={props.isApproved ? 'Approved' : 'Declined'} />
+      <ListItemText primary={props.amount} />
     </ListItem>
   );
 }
 
 const GET_TRANSACTIONS = gql`
   query GetTransactions($limit: Int!, $offset: Int!) {
-    transaction_authorizations(limit: $limit, offset: $offset) {
+    transactionAuthorizations(limit: $limit, offset: $offset) {
       ...txAuthFields
     }
   }
@@ -46,27 +52,26 @@ const TransactionList = () => {
       offset: 0
     }
   });
-  console.log("🚀 ~ file: index.tsx ~ line 32 ~ TransactionList ~ data", data)
   if (loading) return (<CardLoader></CardLoader>)
-
+  const { transactionAuthorizations } = data
+  console.log("🚀 ~ file: index.tsx ~ line 58 ~ TransactionList ~ transactionAuthorizations", transactionAuthorizations)
   const showMore = (clickEvent: React.MouseEvent) => {
     clickEvent.preventDefault();
   }
 
   return (
     <React.Fragment>
-      <AutoSizer>
+      <List>
         {
-          ({height, width}) => (
-            <FixedSizeList height={height} width={width} itemCount={10} itemSize={35}>
-              {renderRow}
-            </FixedSizeList>
-          )
+          transactionAuthorizations.map((ta: any, i: number) => {
+            console.log("🚀 ~ file: index.tsx ~ line 67 ~ transactionAuthorizations.map ~ ta", ta)
+            return renderRow(ta, i)
+          })
         }
-      </AutoSizer>
+      </List>
       <div className={classes.seeMore}>
       <Link color="primary" href="#" onClick={showMore}>
-        See more orders
+        See more transactions
       </Link>
     </div>
   </React.Fragment>

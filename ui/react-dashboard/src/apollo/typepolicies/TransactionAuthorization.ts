@@ -6,7 +6,7 @@ export default function transactionAuthorizations() {
       fields: {
         createdTs: {
           read(createdTs: number): string {
-            return moment(createdTs).format('MM d')
+            return moment(createdTs).format('MMM d')
           }
         },
         amount: {
