@@ -5,6 +5,7 @@ import TransactionList from './components/TransactionList'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    height: '100vh'
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -44,14 +45,13 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    minHeight: '100px',
+    height: '50vh',
     display: 'flex',
-    overflow: 'auto',
     flexDirection: 'column',
   },
   fixedHeight: {
     height: 240,
-  },
+  }
 }));
 
 

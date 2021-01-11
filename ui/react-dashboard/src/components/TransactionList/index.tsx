@@ -30,7 +30,7 @@ console.log("🚀 ~ file: index.tsx ~ line 20 ~ renderRow ~ props", props)
 
 const GET_TRANSACTIONS = gql`
   query GetTransactions($limit: Int!, $offset: Int!) {
-    transactionAuthorizations(limit: $limit, offset: $offset) {
+    transactionAuthorizations(limit: $limit, offset: $offset, order_by: {createdTs: desc}) {
       ...txAuthFields
     }
   }
@@ -48,32 +48,55 @@ const TransactionList = () => {
   const classes = useStyles();
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
     variables: {
-      limit: 5,
+      limit: 15,
       offset: 0
     }
   });
   if (loading) return (<CardLoader></CardLoader>)
-  const { transactionAuthorizations } = data
+  let { transactionAuthorizations } = data
   console.log("🚀 ~ file: index.tsx ~ line 58 ~ TransactionList ~ transactionAuthorizations", transactionAuthorizations)
   const showMore = (clickEvent: React.MouseEvent) => {
     clickEvent.preventDefault();
   }
+  transactionAuthorizations = transactionAuthorizations.concat(transactionAuthorizations).concat(transactionAuthorizations)
+  const row = ({index, style}: any) => {
+    const ta: TAProps = transactionAuthorizations[index]
+    return (
+      <ListItem button key={index} style={style}>
+        <ListItemText primary={ta.createdTs} />
+        <ListItemText primary={ta.merchantName} />
+        <ListItemText primary={ta.isApproved ? 'Approved' : 'Declined'} />
+        <ListItemText primary={ta.amount} />
+      </ListItem>
+    )
+  }
 
   return (
     <React.Fragment>
-      <List>
+      <AutoSizer>
         {
-          transactionAuthorizations.map((ta: any, i: number) => {
-            console.log("🚀 ~ file: index.tsx ~ line 67 ~ transactionAuthorizations.map ~ ta", ta)
-            return renderRow(ta, i)
-          })
+          ({height, width}) => (
+            <FixedSizeList 
+            height={height}
+            width={width}
+            itemSize={42}
+            itemCount={transactionAuthorizations.length}>
+              {/* {
+                transactionAuthorizations.map((ta: any, i: number) => {
+                  console.log("🚀 ~ file: index.tsx ~ line 67 ~ transactionAuthorizations.map ~ ta", ta)
+                  return renderRow(ta, i)
+                })
+              } */}
+              {row}
+            </FixedSizeList>
+          )
         }
-      </List>
-      <div className={classes.seeMore}>
+      </AutoSizer>
+      {/* <div className={classes.seeMore}>
       <Link color="primary" href="#" onClick={showMore}>
         See more transactions
       </Link>
-    </div>
+    </div> */}
   </React.Fragment>
   );
 }

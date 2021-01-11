@@ -6,13 +6,13 @@ export default function transactionAuthorizations() {
       fields: {
         createdTs: {
           read(createdTs: number): string {
-            return moment(createdTs).format('MMM d')
+            return moment(createdTs).format('MMM d, h:mm:ss a')
           }
         },
         amount: {
           read(amount: number): string {
-            const dollarAmount: number = Math.floor(amount / 100)
-            return dollarAmount < 0 ? `-$${Math.abs(dollarAmount)}` : `$${dollarAmount}`
+            const dollarAmount: number = (amount / 100)
+            return dollarAmount.toLocaleString("en-US", {style:"currency", currency:"USD"});
           }
         },
         merchantCategory: {
