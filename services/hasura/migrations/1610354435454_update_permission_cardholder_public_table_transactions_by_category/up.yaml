@@ -1,0 +1,20 @@
+- args:
+    permission:
+      allow_aggregations: false
+      backend_only: false
+      columns:
+      - merchant_category
+      - card_holder_id
+      - card_id
+      - num_tx
+      computed_fields: []
+      filter:
+        transaction_category_user:
+          id:
+            _eq: X-Hasura-User-Id
+      limit: null
+    role: cardholder
+    table:
+      name: transactions_by_category
+      schema: public
+  type: create_select_permission

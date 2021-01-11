@@ -41,6 +41,12 @@ tables:
         schema: public
         name: avg_spend
     comment: ""
+  - name: transactionsByCategory
+    definition:
+      function:
+        schema: public
+        name: get_transactions_by_category
+    comment: ""
   select_permissions:
   - role: cardholder
     permission:
@@ -58,12 +64,12 @@ tables:
     schema: public
     name: transaction_authorizations
   configuration:
-    custom_root_fields: {}
+    custom_root_fields:
+      select: transactionAuthorizations
     custom_column_names:
       createdts: createdTs
       merchantname: merchantName
       isapproved: isApproved
-      userid: userId
       merchantcategory: merchantCategory
       authid: authId
       txid: txId
@@ -112,6 +118,35 @@ tables:
           name: cards
         column_mapping:
           card_id: id
+- table:
+    schema: public
+    name: transactions_by_category
+  configuration:
+    custom_root_fields: {}
+    custom_column_names:
+      num_tx: numTx
+      merchant_category: merchantCategory
+  object_relationships:
+  - name: transaction_category_user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        column_mapping:
+          card_holder_id: card_holder_id
+  select_permissions:
+  - role: cardholder
+    permission:
+      columns:
+      - merchant_category
+      - card_holder_id
+      - card_id
+      - num_tx
+      filter:
+        transaction_category_user:
+          id:
+            _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: users

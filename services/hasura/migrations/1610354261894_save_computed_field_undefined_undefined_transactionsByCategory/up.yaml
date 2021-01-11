@@ -1,0 +1,11 @@
+- args:
+    comment: ""
+    definition:
+      function:
+        name: get_transactions_by_category
+        schema: public
+    name: transactionsByCategory
+    table:
+      name: cards
+      schema: public
+  type: add_computed_field

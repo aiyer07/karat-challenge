@@ -19,7 +19,10 @@ const useStyles = makeStyles({
 const GET_TRANSACTION_METRICS = gql`
   query TransactionMetricQuery {
     cards {
-      ...cardAggFields
+      transactionsByCategory {
+        merchantCategory
+        numTx
+      }
     }
   }
   ${TransactionAggregationFragment}
@@ -59,22 +62,22 @@ const TransactionCategoryChart = () => {
   if (loading) return (<CardLoader></CardLoader>)
 
   const { cards } = data
-  const {avgSpend, totalSpend} = cards[0]
+  const {transactionsByCategory} = cards[0]
   return (
     <>
     <Title>Category Analysis</Title>
     <ResponsiveContainer>
     <PieChart>
         <Pie
-          data={fakeD}
+          data={transactionsByCategory}
           label={renderLabel}
           labelLine={false}
           fill="#8884d8"
-          dataKey="value"
+          dataKey="numTx"
         >
 
           {
-            fakeD.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+            transactionsByCategory.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
           }
         </Pie>
     </PieChart>

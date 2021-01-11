@@ -1,0 +1,9 @@
+- args:
+    custom_column_names:
+      merchant_category: merchantCategory
+    custom_root_fields: {}
+    table:
+      name: transactions_by_category
+      schema: public
+  type: set_table_custom_fields
+  version: 2

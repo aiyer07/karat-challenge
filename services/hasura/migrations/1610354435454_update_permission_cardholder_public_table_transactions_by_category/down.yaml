@@ -1,0 +1,6 @@
+- args:
+    role: cardholder
+    table:
+      name: transactions_by_category
+      schema: public
+  type: drop_select_permission

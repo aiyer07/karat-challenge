@@ -1,0 +1,12 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: |-
+      CREATE FUNCTION get_transactions_by_category(card_row cards)
+      RETURNS SETOF transactions_by_category AS $$
+        Select t.merchant_category, t.card_holder_id, t.card_id, count(*)::int as num_tx
+          from transactions t
+          where t.card_id = card_row.id
+          group by t.merchant_category, t.card_holder_id, t.card_id
+      $$ LANGUAGE sql STABLE;
+  type: run_sql
