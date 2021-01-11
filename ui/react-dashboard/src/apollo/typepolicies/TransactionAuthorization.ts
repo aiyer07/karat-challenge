@@ -10,8 +10,9 @@ export default function transactionAuthorizations() {
           }
         },
         amount: {
-          read(amount: number): number {
-            return Math.floor(amount / 100)
+          read(amount: number): string {
+            const dollarAmount: number = Math.floor(amount / 100)
+            return dollarAmount < 0 ? `-$${Math.abs(dollarAmount)}` : `$${dollarAmount}`
           }
         },
         merchantCategory: {

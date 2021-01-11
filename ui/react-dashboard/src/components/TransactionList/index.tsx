@@ -10,7 +10,7 @@ import { makeStyles, Link, List } from "@material-ui/core";
 
 interface TAProps {
   createdTs: string,
-  amount: number,
+  amount: string,
   merchantName: string,
   merchantCategory: string,
   isApproved: boolean
