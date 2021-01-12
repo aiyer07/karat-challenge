@@ -23,11 +23,13 @@ Simulates an AWS serverless cloud application to handle stripe events as well as
 curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
 sudo installer -pkg AWSCLIV2.pkg -target /
 ```
+if you already have the cli installed and pointing to an existing cloud, create a new profile with `region=us-east-1` the rest of the parameters are optional.
+
 3. install `stripe-cli`
 ``` bash
 brew install stripe/stripe-cli/stripe
 ```
-Then run 
+Then login to the test account using the following command and following the instructions that follow
 ``` bash
 stripe login
 ```
@@ -36,14 +38,14 @@ stripe login
 ``` bash
 brew install yarn
 ```
-5. Remaining prereqs can be acquired by running  `yarn install`
+5. Remaining library dependencies can be acquired by running  `yarn install`
 6. Run `docker network create dock-net` to create an external docker network used for all the containers
 
 ### Usage
-This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users preseeded in the database.
+This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users pre-seeded in the database.
 
 #### Turn on Web-App
-1. Run `docker-compose up -d dashboard` to enable the frontend app, backend (hasura) and database (postgres).
+1. Run `docker-compose up -d dashboard` to enable the frontend app, backend (hasura) and database (postgres). This step may take a while your first time running, ensure there aren't any other similarly named images containers or overlapping ports to avoid conflicts & wrong version types.
 2. Run `yarn run migrations` to structure the database
 3. Run `yarn run seeds` to preseed the database
 4. Navigate to localhost:3000 to view the dashboard (default set to user_id `332787f1-1814-47e1-870e-2b9be86d1533` which over a thousand records)
@@ -62,9 +64,9 @@ To add a new user you must update the `users` and `cards` table in postgres.
 3. Find and copy a stripe `card_id` from the above cardholder_id `ic_xxx` 
 4. Add a card row to the postgres table `cards` using the `card_id` and `card_holder_id` above
 #### Switching Users
-By default the data being viewed is of userId `` which has over 1000 transactions and authorizations. In order to view different user follow these steps
+By default the data being viewed is of userId `332787f1-1814-47e1-870e-2b9be86d1533` which has over 1000 transactions and authorizations. In order to view different user follow these steps
 1. Navigate to `./ui/react-dashboard/src/index.tsx`
-2. Update line 28 to be `'x-hasura-user-id': '<user_id>'`
+2. Update line 28 to be `'x-hasura-user-id': '<new_user_id>'`
 3. Save file and refresh browser (hot reload is on and code is mounted in docker volume, but it won't trigger the apollo cache)
  
  The database is preseeded with 3 users to test with:
@@ -91,7 +93,7 @@ Database: postgres
 The application is broken into 3 parts: 
 1. A serverless cloud system responsible for reliably and scalibly handling stripe events. 
 2. Hasura backend offering a permissioned graphql endpoint as the primary API 
-3. A react frontend web application
+3. A react frontend web application using apollo client for graphql queries & client side caching
 #### Diagram
 ![](/karat-local-arch.png)
 #### Tech Stack
