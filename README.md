@@ -43,7 +43,7 @@ brew install yarn
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users preseeded in the database.
 
 #### Turn on Web-App
-1. Run `docker-compose up -d dashboard` to enable the frotnend app, backend (hasura) and database (postgres).
+1. Run `docker-compose up -d dashboard` to enable the frontend app, backend (hasura) and database (postgres).
 2. Run `yarn run migrations` to structure the database
 3. Run `yarn run seeds` to preseed the database
 4. Navigate to localhost:3000 to view the dashboard (default set to user_id `332787f1-1814-47e1-870e-2b9be86d1533` which over a thousand records)
