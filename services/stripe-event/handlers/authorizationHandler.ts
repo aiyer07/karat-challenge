@@ -47,7 +47,6 @@ const handler = async (event: EventBridgeEvent<string, Stripe.Event>) => {
   let err = null
   
   try {
-    console.log('*************** START ********************')
     const {object: authEvent}: any = event.detail.data
     switch (event['detail-type']) {
       case 'issuing_authorization.request':
@@ -60,11 +59,10 @@ const handler = async (event: EventBridgeEvent<string, Stripe.Event>) => {
         authUpdated(authEvent)
         break;
     }
-    console.log('*******************************************')
   } catch (e) {
     err = e
     console.log('*************** ERROR ********************')
-    console.log(e)
+    console.log("🚀 ~ file: authorizationHandler.ts ~ line 66 ~ handler ~ e", e)
     console.log('******************************************')
   }
   const body = err ? JSON.stringify(err) : ""

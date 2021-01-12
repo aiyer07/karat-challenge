@@ -22,12 +22,8 @@ const handler = async (event: EventBridgeEvent<string, Stripe.Event>) => {
   let err = null
   
   try {
-    console.log('*************** START ********************')
-    console.log(hasuraEndpoint)
     const {object: txEvent}: any = event.detail.data
     const {merchant_data: merchantData}: any = txEvent
-    console.log('stripeTransaction')
-    console.log("🚀 ~ file: transactionHandler.ts ~ line 10 ~ handler ~ event", txEvent)
     const variables = {
       txId: txEvent.id,
       amount: txEvent.amount,
@@ -39,8 +35,6 @@ const handler = async (event: EventBridgeEvent<string, Stripe.Event>) => {
       merchantCategory: merchantData.category
     }
     const data = await graphQLClient.request(addStripeTransactionMutation, variables)
-    console.log("🚀 ~ file: transactionHandler.ts ~ line 28 ~ handler ~ data", data)
-    console.log('*******************************************')
   } catch (e) {
     err = e
     console.log('*************** ERROR ********************')
