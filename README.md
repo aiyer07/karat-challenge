@@ -4,6 +4,7 @@ Simulates an AWS serverless cloud application to handle stripe events as well as
 ![](/karat_screenshot.png)
 
 ### Table of Contents
+- [Prereqs](#prereqs)
 - [Usage](#usage)
   - [Turn on Web-App](#turn-on-web-app)
   - [Turn on Serverless Event System](#turn-on-serverless-event-system)
@@ -27,8 +28,10 @@ sudo installer -pkg AWSCLIV2.pkg -target /
 brew install yarn
 ```
 4. Remaining prereqs can be acquired by running  `yarn install`
+5. Run `docker network create dock-net` to create an external docker network used for all the containers
 ### Usage
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users preseeded in the database.
+
 
 #### Turn on Web-App
 1. Run `docker-compose up -d dashboard` to enable the frotnend app, backend (hasura) and database (postgres).
