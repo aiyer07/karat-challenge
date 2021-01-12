@@ -41,7 +41,7 @@ const TransactionList = () => {
   if (loading) return (<CardLoader></CardLoader>)
 
   // destructure transactions out of data
-  let { transactionAuthorizations } = data
+  let { transactionAuthorizations } = data || { transactionAuthorizations: []}
   
 
   // returns a single row for a given index the list is in
