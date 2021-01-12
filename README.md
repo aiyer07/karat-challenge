@@ -65,7 +65,7 @@ To add a new user you must update the `users` and `cards` table in postgres.
 By default the data being viewed is of userId `` which has over 1000 transactions and authorizations. In order to view different user follow these steps
 1. Navigate to `./ui/react-dashboard/src/index.tsx`
 2. Update line 28 to be `'x-hasura-user-id': '<user_id>'`
-3. Save file and refresh browser (hot reload is on and code is mounted in docker, but it won't trigger the apollo cache)
+3. Save file and refresh browser (hot reload is on and code is mounted in docker volume, but it won't trigger the apollo cache)
  
  The database is preseeded with 3 users to test with:
  ```
