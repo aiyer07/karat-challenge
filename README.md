@@ -29,9 +29,9 @@ brew install yarn
 ```
 4. Remaining prereqs can be acquired by running  `yarn install`
 5. Run `docker network create dock-net` to create an external docker network used for all the containers
+
 ### Usage
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users preseeded in the database.
-
 
 #### Turn on Web-App
 1. Run `docker-compose up -d dashboard` to enable the frotnend app, backend (hasura) and database (postgres).
@@ -40,7 +40,7 @@ This project is setup as a mono-repo and includes all the components necessary t
 4. Navigate to localhost:3000 to view the dashboard (default set to user_id `332787f1-1814-47e1-870e-2b9be86d1533` which over a thousand records)
 #### Turn on Serverless Event System
 1.  Run `docker-compose up -d localstack`. Ensure that this step has completed by checking `localhost:4566/health` and verifying that all services are 'running'. (remove the `-d` if you'd like to see the lambdas & serverless enviornment logs, you will need to open new terminals for the remaining steps in this case)
-2.  Run `yarn run stripe-sls-sytem`. This will deploy all serverless components and startup the stripe event forwarding on your machine as the last step. Ensure this step is completed before moving on to the next. Do not terminate this terminal
+2.  Run `yarn run stripe-sls-system`. This will deploy all serverless components and startup the stripe event forwarding on your machine as the last step. Ensure this step is completed before moving on to the next. Do not terminate this terminal
 3. Copy the webhook signing secret from the terminal above.
 4. Open a new terminal at the root of the directory and run `yarn run store-stripe-signing-secret <webhook-signing-secret>`, pasting the the secret copied in step 4 to `<webhook-signing-secret>`
 5. Go to the stripe dashboard and add authorizations. Note that closing the stripe event terminal will terminate the connection and you will need to run steps 3 through 5 again
