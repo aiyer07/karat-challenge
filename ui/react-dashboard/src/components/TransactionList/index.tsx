@@ -45,7 +45,7 @@ const TransactionList = () => {
   
 
   // returns a single row for a given index the list is in
-  const row = ({index, style}: any) => {
+  const row = ({index, style}: {index: number, style: React.CSSProperties}) => {
     const ta: TAProps = transactionAuthorizations[index]
     return (
       <ListItem key={index} style={style}>
@@ -61,7 +61,7 @@ const TransactionList = () => {
     return index < transactionAuthorizations.length - 1
   };
 
-  const loadMore = () => {
+  const loadMore = (): Promise<any> => {
     return fetchMore({
       variables: {
         limit: TRANSACTION_LIMIT,
@@ -80,12 +80,12 @@ const TransactionList = () => {
             isItemLoaded={isItemLoaded}
             itemCount={transactionAuthorizations.length}
             loadMoreItems={loadMore}
-            threshold={1}
+            threshold={1} // load next batch when we are 1 item away from the end
           >
             {({ onItemsRendered, ref }) => (
               <FixedSizeList
               ref={ref}
-              height={height - 30}
+              height={height - 30} // -30 to compensate title height
               width={width}
               onItemsRendered={onItemsRendered}
               itemSize={45}

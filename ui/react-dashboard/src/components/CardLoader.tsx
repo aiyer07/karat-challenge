@@ -13,7 +13,7 @@ createStyles({
 );
 
 const CardLoader = (props: any) => {
-  const classes: Record<'root', string> = useStyles();
+  const classes = useStyles();
 return (
   <div className={classes.root}>
     <CircularProgress />

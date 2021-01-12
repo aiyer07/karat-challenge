@@ -7,7 +7,7 @@ import { TransactionAggregationFragment } from "../../graphql/fragments";
 import CardLoader from '../CardLoader';
 
 const useStyles = makeStyles({
-  depositContext: {
+  subHeader: {
     flex: 1,
   },
 });
@@ -29,20 +29,20 @@ const TransactionMetrics = () => {
   if (loading) return (<CardLoader></CardLoader>)
 
   const { cards } = data || {}
-  const {avgSpend, totalSpend} = cards[0] || { avgSpend: '-', totalSpend: '-' }
+  const {avgSpend, totalSpend} = cards?.[0] || { avgSpend: '-', totalSpend: '-' }
   return (
     <>
     <Title>Metrics</Title>
       <Typography component="p" variant="h4">
         {totalSpend}
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
+      <Typography color="textSecondary" className={classes.subHeader}>
         Total Spend
       </Typography>
       <Typography component="p" variant="h4">
         {avgSpend}
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
+      <Typography color="textSecondary" className={classes.subHeader}>
         Average Spend
       </Typography>
     </>
