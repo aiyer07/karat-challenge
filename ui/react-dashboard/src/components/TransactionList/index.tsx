@@ -51,6 +51,7 @@ const TransactionList = () => {
       <ListItem key={index} style={style}>
         <ListItemText primary={ta.createdTs} />
         <ListItemText primary={ta.merchantName} />
+        <ListItemText primary={ta.merchantCategory} />
         <ListItemText primary={ta.isApproved ? 'Approved' : 'Declined'} />
         <ListItemText primary={ta.amount} />
       </ListItem>
@@ -61,13 +62,14 @@ const TransactionList = () => {
     return index < transactionAuthorizations.length - 1
   };
 
-  const loadMore = (): Promise<any> => {
+  const loadMore = (): Promise<any> | null => {
+    if (!fetchMore) return null;
     return fetchMore({
       variables: {
         limit: TRANSACTION_LIMIT,
         offset: transactionAuthorizations.length
       }
-    })
+    }) 
   }
   // virtualized list handler for handling large number of rows
   return (
