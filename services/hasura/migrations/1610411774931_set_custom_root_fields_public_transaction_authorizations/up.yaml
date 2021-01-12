@@ -1,0 +1,15 @@
+- args:
+    custom_column_names:
+      authid: authId
+      createdts: createdTs
+      isapproved: isApproved
+      merchantcategory: merchantCategory
+      merchantname: merchantName
+      txid: txId
+    custom_root_fields:
+      select: transactionAuthorizations
+    table:
+      name: transaction_authorizations
+      schema: public
+  type: set_table_custom_fields
+  version: 2
