@@ -23,12 +23,21 @@ Simulates an AWS serverless cloud application to handle stripe events as well as
 curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
 sudo installer -pkg AWSCLIV2.pkg -target /
 ```
-3. install `yarn`
+3. install `stripe-cli`
+``` bash
+brew install stripe/stripe-cli/stripe
+```
+Then run 
+``` bash
+stripe login
+```
+
+4. install `yarn`
 ``` bash
 brew install yarn
 ```
-4. Remaining prereqs can be acquired by running  `yarn install`
-5. Run `docker network create dock-net` to create an external docker network used for all the containers
+5. Remaining prereqs can be acquired by running  `yarn install`
+6. Run `docker network create dock-net` to create an external docker network used for all the containers
 
 ### Usage
 This project is setup as a mono-repo and includes all the components necessary to run a full-stack application. There are also several users preseeded in the database.
