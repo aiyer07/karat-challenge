@@ -48,7 +48,7 @@ This project is setup as a mono-repo and includes all the components necessary t
 1. Run `docker-compose up -d dashboard` to enable the frontend app, backend (hasura) and database (postgres). This step may take a while your first time running, ensure there aren't any other similarly named images containers or overlapping ports to avoid conflicts & wrong version types.
 2. Run `yarn run migrations` to structure the database
 3. Run `yarn run seeds` to preseed the database
-4. Navigate to localhost:3000 to view the dashboard (default set to user_id `332787f1-1814-47e1-870e-2b9be86d1533` which over a thousand records)
+4. Navigate to localhost:3000 to view the dashboard (default set to user_id `332787f1-1814-47e1-870e-2b9be86d1533` which contains over 1000 authorizationss & transactions records)
 #### Turn on Serverless Event System
 1.  Run `docker-compose up -d localstack`. Ensure that this step has completed by checking `localhost:4566/health` and verifying that all services are 'running'. (remove the `-d` if you'd like to see the lambdas & serverless enviornment logs, you will need to open new terminals for the remaining steps in this case)
 2.  Run `yarn run stripe-sls-system`. This will deploy all serverless components and startup the stripe event forwarding on your machine as the last step. Ensure this step is completed before moving on to the next. Do not terminate this terminal
