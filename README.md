@@ -76,7 +76,7 @@ By default the data being viewed is of userId `332787f1-1814-47e1-870e-2b9be86d1
  - 139b9f47-f9f6-4a58-92d0-9b1f571a4523
  ```
 #### Viewing Hasura Console
-You may wish to see some of the graphql relationships & sql functions used. This console can visualize this for you and runs by default when the container is on. It can also serve as an easy way of viewing and modify the SQL database if you do not have a client of your own
+You may wish to see some of the graphql relationships & sql functions used. This console can visualize this for you and runs by default when the container is on. It can also serve as an easy way of viewing and modifying the SQL database if you do not have a client of your own
 1. Ensure hasura container is running or run `docker-compose up -d hasura`
 2. Navigate to `localhost:3010`
 #### Connecting directly to the postgres instance
