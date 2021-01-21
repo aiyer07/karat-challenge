@@ -1,8 +1,6 @@
 # karat-challenge
 Simulates an AWS serverless cloud application to handle stripe events as well as implements a simple web dashboard with a graphql backend 
 ![](/karat-local-arch.png)
-
-![](/karat_screenshot.png)
 ### Table of Contents
 - [Prereqs](#prereqs)
 - [Usage](#usage)
@@ -56,6 +54,8 @@ This project is setup as a mono-repo and includes all the components necessary t
 4. Open a new terminal at the root of the directory and run `yarn run store-stripe-signing-secret <webhook-signing-secret>`, pasting the the secret copied in step 4 to `<webhook-signing-secret>`
 5. Go to the stripe dashboard and add authorizations. Note that closing the stripe event terminal will terminate the connection and you will need to run steps 3 through 5 again
 
+
+![](/karat_screenshot.png)
 
 #### Adding New Users
 To add a new user you must update the `users` and `cards` table in postgres.
