@@ -1,8 +1,8 @@
 # karat-challenge
 Simulates an AWS serverless cloud application to handle stripe events as well as implements a simple web dashboard with a graphql backend 
+![](/karat-local-arch.png)
 
 ![](/karat_screenshot.png)
-
 ### Table of Contents
 - [Prereqs](#prereqs)
 - [Usage](#usage)
@@ -95,6 +95,7 @@ The application is broken into 3 parts:
 2. Hasura backend offering a permissioned graphql endpoint as the primary API 
 3. A react frontend web application using apollo client for graphql queries & client side caching
 #### Diagram
+
 ![](/karat-local-arch.png)
 #### Tech Stack
 
